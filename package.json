@@ -1,0 +1,13 @@
+{
+  "name": "runner-benchmark",
+  "version": "1.0.0",
+  "description": "A project to benchmark GitHub Actions runners.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Building...\" && sleep 5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

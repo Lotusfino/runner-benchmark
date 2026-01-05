@@ -1,0 +1,73 @@
+name: Runner Benchmark
+
+on:
+  workflow_dispatch:
+
+jobs:
+  benchmark-self-hosted:
+    name: Build on Self-hosted Runner
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Measure 'npm install'
+        run: |
+          echo "INSTALL_START=$(date +%s)" >> $GITHUB_ENV
+          npm install
+          echo "INSTALL_END=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Measure 'npm run build'
+        run: |
+          echo "BUILD_START=$(date +%s)" >> $GITHUB_ENV
+          npm run build # 替换成您的实际构建命令
+          echo "BUILD_END=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Calculate and Print Durations
+        run: |
+          INSTALL_DURATION=$((GITHUB_ENV.INSTALL_END - GITHUB_ENV.INSTALL_START))
+          BUILD_DURATION=$((GITHUB_ENV.BUILD_END - GITHUB_ENV.BUILD_START))
+          echo "--------------------------------"
+          echo "Self-hosted Runner Performance:"
+          echo "npm install took: $INSTALL_DURATION seconds"
+          echo "npm run build took: $BUILD_DURATION seconds"
+          echo "--------------------------------"
+
+  benchmark-github-hosted:
+    name: Build on GitHub-hosted Runner
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Measure 'npm install'
+        run: |
+          echo "INSTALL_START=$(date +%s)" >> $GITHUB_ENV
+          npm install
+          echo "INSTALL_END=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Measure 'npm run build'
+        run: |
+          echo "BUILD_START=$(date +%s)" >> $GITHUB_ENV
+          npm run build # 替换成您的实际构建命令
+          echo "BUILD_END=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Calculate and Print Durations
+        run: |
+          INSTALL_DURATION=$((GITHUB_ENV.INSTALL_END - GITHUB_ENV.INSTALL_START))
+          BUILD_DURATION=$((GITHUB_ENV.BUILD_END - GITHUB_ENV.BUILD_START))
+          echo "--------------------------------"
+          echo "GitHub-hosted Runner Performance:"
+          echo "npm install took: $INSTALL_DURATION seconds"
+          echo "npm run build took: $BUILD_DURATION seconds"
+          echo "--------------------------------"

@@ -30,8 +30,8 @@ jobs:
 
       - name: Calculate and Print Durations
         run: |
-          INSTALL_DURATION=$((GITHUB_ENV.INSTALL_END - GITHUB_ENV.INSTALL_START))
-          BUILD_DURATION=$((GITHUB_ENV.BUILD_END - GITHUB_ENV.BUILD_START))
+          INSTALL_DURATION=$((INSTALL_END - INSTALL_START))
+          BUILD_DURATION=$((BUILD_END - BUILD_START))
           echo "--------------------------------"
           echo "Self-hosted Runner Performance:"
           echo "npm install took: $INSTALL_DURATION seconds"
@@ -64,8 +64,8 @@ jobs:
 
       - name: Calculate and Print Durations
         run: |
-          INSTALL_DURATION=$((GITHUB_ENV.INSTALL_END - GITHUB_ENV.INSTALL_START))
-          BUILD_DURATION=$((GITHUB_ENV.BUILD_END - GITHUB_ENV.BUILD_START))
+          INSTALL_DURATION=$((INSTALL_END - INSTALL_START))
+          BUILD_DURATION=$((BUILD_END - BUILD_START))
           echo "--------------------------------"
           echo "GitHub-hosted Runner Performance:"
           echo "npm install took: $INSTALL_DURATION seconds"
